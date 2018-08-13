@@ -27,6 +27,7 @@
     "whatwg-fetch": "^2.0.4"
   },
   "pre-commit": [
-    "npm run build && npm run docs"
+    "build",
+    "docs"
   ]
 }
