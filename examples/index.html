@@ -11,26 +11,56 @@
 
     <script>
 
-      var authToken = "80f979612e368dc06014c7ba305381c4fc5d28925a45eee93a7d68df1234566a0e29fe11a0187cf3b75eab5467dd597ce4b00c9f9aeba6c0bb51fb85364e6971";
-      var host = "https://monsterdev.com";
-      MonsterConnect.createClient({ authToken, host }).then((client) => {
-        window.mcClient = client;
-        updateCallState();
+      var mcClient = null;
 
-        client.callSession.on('stateChanged', (data) => {
-          updateCallState(data);
-        });
+      function ready() {
+        var host = localStorage['host'];
+        var authToken = localStorage['authToken'];
+        if (host) {
+          document.getElementById('input-host').value = host;
+        }
 
-        client.callSession.on('outboundCallChanged', (data) => {
-          updateOutboundCall(data);
-        })
-      });
+        if (authToken) {
+          document.getElementById('input-auth-token').value = authToken;
+        }
 
+        if (host && authToken) {
+          connect();
+        }
+      }
+
+
+      function connect() {
+        var host = localStorage['host'];
+        var authToken = localStorage['authToken'];
+        if (host && authToken) {
+          MonsterConnect.createClient({ authToken, host }).then((client) => {
+            mcClient = client;
+            updateCallState();
+
+            client.callSession.on('stateChanged', (data) => {
+              updateCallState(data);
+            });
+
+            client.callSession.on('outboundCallChanged', (data) => {
+              updateOutboundCall(data);
+            })
+          });
+        }
+      }
+
+      function updateClientInfo() {
+        var host = document.getElementById('input-host').value;
+        var authToken = document.getElementById('input-auth-token').value;
+        localStorage['host'] = host;
+        localStorage['authToken'] = authToken;
+        connect();
+      }
 
       function updateCallState(data) {
-        document.getElementById('user-id').innerHTML = window.mcClient.user.id;
-        document.getElementById('call-session-id').innerHTML = window.mcClient.callSession.id;
-        document.getElementById('call-session-state').innerHTML = window.mcClient.callSession.state;
+        document.getElementById('user-id').innerHTML = mcClient.user.id;
+        document.getElementById('call-session-id').innerHTML = mcClient.callSession.id;
+        document.getElementById('call-session-state').innerHTML = mcClient.callSession.state;
         document.getElementById('call-session-updated-at').innerHTML = new Date();
       }
 
@@ -103,7 +133,11 @@
 
     <h1>MonsterConnect Javascript Library</h1>
 
-    <h3>Use <strong>window.mcClient</strong> in the console to test.</h3>
+    <input type="text" id="input-host" placeholder="(MonsterConnect host, e.g. https://app.monsterconnect.com)">
+    <input type="text" id="input-auth-token" placeholder="(auth token)">
+    <button onclick="updateClientInfo()">Connect</button>
+
+    <h3>Use <strong>mcClient</strong> in the console to test.</h3>
 
     <table>
       <tbody>
@@ -147,12 +181,12 @@
 
     <div id="code">
       <div id="code-blocks">
-        <code><a href="#" onclick="runCode(this)">window.mcClient.callSession.getCallSessionCredentials();</a></code>
-        <code><a href="#" onclick="runCode(this)">window.mcClient.callSession.beep();</a></code>
-        <code><a href="#" onclick="runCode(this)">window.mcClient.callSession.resume();</a></code>
-        <code><a href="#" onclick="runCode(this)">window.mcClient.callSession.pause();</a></code>
-        <code><a href="#" onclick="runCode(this)">window.mcClient.callSession.endOutboundCall();</a></code>
-        <code><a href="#" onclick="runCode(this)">window.mcClient.callSession.endCallSession();</a></code>
+        <code><a href="#" onclick="runCode(this)">mcClient.callSession.getCallSessionCredentials();</a></code>
+        <code><a href="#" onclick="runCode(this)">mcClient.callSession.beep();</a></code>
+        <code><a href="#" onclick="runCode(this)">mcClient.callSession.resume();</a></code>
+        <code><a href="#" onclick="runCode(this)">mcClient.callSession.pause();</a></code>
+        <code><a href="#" onclick="runCode(this)">mcClient.callSession.endOutboundCall();</a></code>
+        <code><a href="#" onclick="runCode(this)">mcClient.callSession.endCallSession();</a></code>
       </div>
 
       <div id="code-result">
@@ -160,5 +194,9 @@
         </code>
       </div>
     </div>
+
+    <script>
+      ready();
+    </script>
   </body>
 </html>
