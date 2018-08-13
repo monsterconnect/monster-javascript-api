@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MonsterConnect JS Library Test Page</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="../dist/monsterconnect.js"></script>
+
+    <script>
+
+      var authToken = "80f979612e368dc06014c7ba305381c4fc5d28925a45eee93a7d68df1234566a0e29fe11a0187cf3b75eab5467dd597ce4b00c9f9aeba6c0bb51fb85364e6971";
+      var host = "https://monsterdev.com";
+      MonsterConnect.createClient({ authToken, host }).then((client) => {
+        window.mcClient = client;
+        updateCallState();
+
+        client.callSession.on('stateChanged', (data) => {
+          updateCallState(data);
+        });
+
+        client.callSession.on('outboundCallChanged', (data) => {
+          updateOutboundCall(data);
+        })
+      });
+
+
+      function updateCallState(data) {
+        document.getElementById('user-id').innerHTML = window.mcClient.user.id;
+        document.getElementById('call-session-id').innerHTML = window.mcClient.callSession.id;
+        document.getElementById('call-session-state').innerHTML = window.mcClient.callSession.state;
+        document.getElementById('call-session-updated-at').innerHTML = new Date();
+      }
+
+      function updateOutboundCall(data) {
+        var rowElementId = 'outbound-call-' + String(data.id);
+        var outboundCallRow = document.getElementById(rowElementId);
+        if (!outboundCallRow) {
+          outboundCallRow = document.createElement('tr');
+          outboundCallRow.id = rowElementId;
+          outboundCallRow.append(document.createElement('td'));
+          outboundCallRow.append(document.createElement('td'));
+          outboundCallRow.append(document.createElement('td'));
+          outboundCallRow.append(document.createElement('td'));
+          outboundCallRow.append(document.createElement('td'));
+          document.querySelector('#outbound-calls tbody').append(outboundCallRow);
+        }
+
+        var cells = outboundCallRow.querySelectorAll('td');
+        cells[0].innerHTML = data.id;
+        cells[1].innerHTML = data.leadId;
+        cells[2].innerHTML = data.state;
+        cells[3].innerHTML = data.startedAt;
+        cells[4].innerHTML = data.endedAt;
+      }
+
+
+      function runCode(el) {
+        var result = eval(el.innerHTML);
+        var codeResultElement = document.querySelector('#code-result code');
+        if (result.then) {
+          codeResultElement.innerHTML = "(executing...)";
+          result.then((result) => {
+            var json = JSON.stringify(result);
+            codeResultElement.innerHTML = json;
+          }).catch((e) => {
+            var json = "ERROR: " + JSON.stringify(e);
+            codeResultElement.innerHTML = json;
+          });
+        }
+      }
+    </script>
+
+    <style>
+      #outbound-calls {
+        text-align: center;
+      }
+
+      #code {
+        display: flex;
+      }
+
+      #code #code-blocks {
+        flex: 1 1 50%;
+      }
+
+      #code #code-result {
+        flex: 1 1 50%;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        padding: 8px;
+      }
+
+      #code-blocks code {
+        display: block;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>MonsterConnect Javascript Library</h1>
+
+    <h3>Use <strong>window.mcClient</strong> in the console to test.</h3>
+
+    <table>
+      <tbody>
+        <tr>
+          <td>User ID:</td>
+          <td id="user-id"></td>
+        </tr>
+        <tr>
+          <td>Call Session ID:</td>
+          <td id="call-session-id"></td>
+        </tr>
+        <tr>
+          <td>Call Session State:</td>
+          <td id="call-session-state"></td>
+        </tr>
+        <tr>
+          <td>Last Updated At:</td>
+          <td id="call-session-updated-at"></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <h2>Outbound Calls</h2>
+
+    <table id="outbound-calls" style="width: 100%">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Lead ID</th>
+          <th>State</th>
+          <th>Started At</th>
+          <th>Ended At</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+    <h2>Code Examples</h2>
+
+    <div id="code">
+      <div id="code-blocks">
+        <code><a href="#" onclick="runCode(this)">window.mcClient.callSession.getCallSessionCredentials();</a></code>
+        <code><a href="#" onclick="runCode(this)">window.mcClient.callSession.beep();</a></code>
+        <code><a href="#" onclick="runCode(this)">window.mcClient.callSession.resume();</a></code>
+        <code><a href="#" onclick="runCode(this)">window.mcClient.callSession.pause();</a></code>
+        <code><a href="#" onclick="runCode(this)">window.mcClient.callSession.endOutboundCall();</a></code>
+        <code><a href="#" onclick="runCode(this)">window.mcClient.callSession.endCallSession();</a></code>
+      </div>
+
+      <div id="code-result">
+        <code>
+        </code>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "monsterconnect",
+  "version": "0.1.0",
+  "description": "MonsterConnect Javascript API",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode=development --display-error-details",
+    "production": "webpack -p --display-error-details",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "copy-webpack-plugin": "^4.5.2",
+    "file-loader": "^1.1.11",
+    "ts-loader": "^4.4.2",
+    "typescript": "^3.0.1",
+    "uglifyjs-webpack-plugin": "^1.2.7",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "whatwg-fetch": "^2.0.4"
+  }
+}
