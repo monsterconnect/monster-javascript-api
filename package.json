@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "pre-commit": "^1.2.2",
     "whatwg-fetch": "^2.0.4"
   },
   "pre-commit": [
