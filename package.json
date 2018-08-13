@@ -7,7 +7,8 @@
     "build": "webpack --mode=development --display-error-details",
     "production": "webpack -p --display-error-details",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "typedoc --out docs/ --module commonjs src/index.js"
+    "docs": "typedoc --out docs/ --module commonjs src/index.js",
+    "add-updated-docs-to-commit": "git add docs"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,7 @@
     "file-loader": "^1.1.11",
     "ts-loader": "^4.4.2",
     "typedoc": "^0.11.1",
+    "typedoc-plugin-nojekyll": "^1.0.1",
     "typedoc-webpack-plugin": "^1.1.4",
     "typescript": "^3.0.1",
     "uglifyjs-webpack-plugin": "^1.2.7",
@@ -28,6 +30,8 @@
     "whatwg-fetch": "^2.0.4"
   },
   "pre-commit": [
-    "build"
+    "build",
+    "docs",
+    "add-updated-docs-to-commit"
   ]
 }
