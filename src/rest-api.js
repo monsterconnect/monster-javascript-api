@@ -22,6 +22,9 @@ export default class RestApi {
     return this._fetch(path, { method: 'DELETE' });
   }
 
+  /**
+    * @private
+  */
   _fetch(path, params) {
     const url = this._buildUrl(path);
     const requestParams = this._buildRequestParams(params);
@@ -32,6 +35,9 @@ export default class RestApi {
     });
   }
 
+  /**
+    * @private
+  */
   _buildUrl(path, queryParams = {}) {
     const url = [ this.host, this.namespace, path ].join('/');
     const q = Object.keys(queryParams).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k])).join('&');
@@ -42,6 +48,9 @@ export default class RestApi {
     }
   }
 
+  /**
+    * @private
+  */
   _buildRequestParams(params) {
     const defaultParams = {
       mode: 'cors',

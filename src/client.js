@@ -44,6 +44,9 @@ export default class Client {
     return this.callSession.fetch();
   }
 
+  /**
+    * @private
+  */
   _initializeRealtimeConnection() {
     this.realtime = new RealtimeConnection({ host: this.host, authToken: this.authToken });
   }

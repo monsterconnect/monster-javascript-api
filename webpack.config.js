@@ -1,6 +1,7 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+var TypedocWebpackPlugin = require('typedoc-webpack-plugin');
 const fs = require('fs');
 
 const environment = process.env.NODE_ENV || 'development';
@@ -33,6 +34,7 @@ let config = {
     extensions: [ '.ts', '.js']
   },
   plugins: [
+    new TypedocWebpackPlugin({ module: 'commonjs' }, './src/index.js')
   ]
 };
 

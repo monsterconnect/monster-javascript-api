@@ -9,6 +9,9 @@ export default class RealtimeConnection {
     this._initializeClient();
   }
 
+  /**
+    * @private
+  */
   _initializeClient() {
     this._webSocketClient = new Faye.Client(this.webSocketUrl);
     // add this object as an extension so that incoming() and outgoing() will be called

@@ -28,31 +28,31 @@ export default class CallSession {
   }
 
   endCallSession() {
-    return this.sendAction('hangup');
+    return this._sendAction('hangup');
   }
 
   endOutboundCall() {
-    return this.sendAction('disconnect');
+    return this._sendAction('disconnect');
   }
 
   beep() {
-    return this.sendAction('beep');
+    return this._sendAction('beep');
   }
 
   dialNext() {
-    return this.sendAction('dialNext');
+    return this._sendAction('dialNext');
   }
 
   callMe() {
-    return this.sendAction('call_me');
+    return this._sendAction('call_me');
   }
 
   pause() {
-    return this.sendAction('pause_dialing');
+    return this._sendAction('pause_dialing');
   }
 
   resume() {
-    return this.sendAction('resume_dialing');
+    return this._sendAction('resume_dialing');
   }
 
   getCallSessionCredentials() {
@@ -74,6 +74,9 @@ export default class CallSession {
     this.events.trigger(...arguments);
   }
 
+  /**
+    * @private
+  */
   _getUrlPath(action) {
     const base = `call_sessions/${this.id}`;
     if (action) {
@@ -83,11 +86,17 @@ export default class CallSession {
     }
   }
 
-  sendAction(action) {
+  /**
+    * @private
+  */
+  _sendAction(action) {
     const path = this._getUrlPath(action);
     return this.client.http.get(path);
   }
 
+  /**
+    * @private
+  */
   _subscribe() {
     if (!this._subscribed) {
       const userId = this.client.user.id;
@@ -98,6 +107,9 @@ export default class CallSession {
     }
   }
 
+  /**
+    * @private
+  */
   _unsubscribe() {
     if (this._subscribed) {
       const userId = this.client.user.id;
@@ -107,6 +119,9 @@ export default class CallSession {
     }
   }
 
+  /**
+    * @private
+  */
   _handleRealtimeEvent(payload) {
     if (payload.event === 'state_changed') {
       this._handleStateChanged(payload);
@@ -117,6 +132,9 @@ export default class CallSession {
     }
   }
 
+  /**
+    * @private
+  */
   _handleStateChanged(payload) {
     this.id = payload.call_session_id;
     this.state = payload.to;
@@ -130,6 +148,9 @@ export default class CallSession {
     }
   }
 
+  /**
+    * @private
+  */
   _handleOutboundCallChanged(payload) {
     const id = payload.id;
     this.outboundCalls[id] = this.outboundCalls[id] || {};
