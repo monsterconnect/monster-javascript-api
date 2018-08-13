@@ -8,7 +8,7 @@
     "production": "webpack -p --display-error-details",
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "typedoc --out docs/ --module commonjs src/index.js",
-    "add-updated-docs-to-commit": "git add docs"
+    "add-generated-files-to-commit": "git add dist && git add docs"
   },
   "author": "",
   "license": "ISC",
@@ -32,6 +32,6 @@
   "pre-commit": [
     "build",
     "docs",
-    "add-updated-docs-to-commit"
+    "add-generated-files-to-commit"
   ]
 }
