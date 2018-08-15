@@ -40,7 +40,7 @@ export default class CallSession {
   }
 
   dialNext() {
-    return this._sendAction('dialNext');
+    return this._sendAction('dial_next');
   }
 
   callMe() {
@@ -62,6 +62,39 @@ export default class CallSession {
     });
   }
 
+  /**
+    * Submit one or more leads to be dialed.  Leads can be sent in realtime upon request,
+    * or they can be sent in batches ahead of time.  The leads will be dialed in the order
+    * in which they are submitted.
+    * The _masterId_ property is a unique identifier from the external system,
+    * such as the CRM's contact ID.
+  */
+  submitLead(...leads) {
+    const data = {
+      leads: leads.map((l) => {
+        return {
+          master_id: l.masterId,
+          first_name: l.firstName,
+          last_name: l.lastName,
+          title: l.title,
+          company_name: l.companyName,
+          phone: l.phone,
+          email: l.email
+        }
+      })
+    };
+    const path = this._getUrlPath('leads')
+    return this.client.http.post(path, data);
+  }
+
+  /**
+    * Clears the list of submitted leads.
+  */
+  clearLeads() {
+    const path = this._getUrlPath('leads')
+    return this.client.http.delete(path);
+  }
+
   on() {
     this.events.on(...arguments);
   }
@@ -72,6 +105,17 @@ export default class CallSession {
 
   trigger() {
     this.events.trigger(...arguments);
+  }
+
+  /**
+    * Specifies how the leads will be selected. Valid options are:
+    * lead_list: A data source and lead list is loaded and selected
+    * queue: The call session will be requesting leads in realtime
+  */
+  setLeadSelectionMethod(method) {
+    const path = this._getUrlPath();
+    const data = { call_session: { lead_selection_method: method } };
+    return this.client.http.put(path, data);
   }
 
   /**

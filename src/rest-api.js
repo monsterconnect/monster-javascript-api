@@ -56,6 +56,7 @@ export default class RestApi {
       mode: 'cors',
       cache: 'no-cache',
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Token token="${this.authToken}"`
       }
     };
