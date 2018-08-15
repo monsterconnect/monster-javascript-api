@@ -167,13 +167,15 @@ export default class CallSession {
     * @private
   */
   _handleRealtimeEvent(payload) {
-    if (payload.event === 'state_changed') {
-      this._handleStateChanged(payload);
-    } else if (payload.event === 'lead_outbound_call_state') {
-      this._handleOutboundCallChanged(payload);
-    } else {
-      console.warn(`Unknown call event: "${payload.event}"`, payload);
+    switch(payload.event) {
+      case 'state_changed':
+        return this._handleStateChanged(payload);
+      case 'lead_outbound_call_state':
+        return this._handleOutboundCallChanged(payload);
+      case 'request_lead':
+        return this._handleLeadRequested(payload);
     }
+    console.warn(`Unknown call event: "${payload.event}"`, payload);
   }
 
   /**
@@ -209,5 +211,12 @@ export default class CallSession {
         endedAt: (payload.ended_at && new Date(payload.ended_at))
       });
     }
+  }
+
+  /**
+    * @private
+  */
+  _handleLeadRequested(payload) {
+    this.trigger('leadRequested');
   }
 }
