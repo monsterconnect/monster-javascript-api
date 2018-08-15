@@ -18,14 +18,12 @@
     "ts-loader": "^4.4.2",
     "typedoc": "^0.11.1",
     "typedoc-plugin-nojekyll": "^1.0.1",
-    "typedoc-webpack-plugin": "^1.1.4",
     "typescript": "^3.0.1",
     "uglifyjs-webpack-plugin": "^1.2.7",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "pre-commit": "^1.2.2",
     "promise-polyfill": "8.1.0",
     "whatwg-fetch": "^2.0.4"
