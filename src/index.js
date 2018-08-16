@@ -6,7 +6,6 @@ if (!window.Promise) {
 
 import 'whatwg-fetch';
 
-
 import MonsterConnect from './monster-connect';
 
 if (!window.MonsterConnect) {

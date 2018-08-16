@@ -1,13 +1,29 @@
 import RealtimeConnection from './realtime-connection';
-import Events from './events';
-import RestApi from './rest-api';
+import { Events, EventCallback } from './events';
+import { RestApi, FetchResult } from './rest-api';
 import CallSession from './call-session';
 
 const DEFAULT_HOST = 'https://app.monsterconnect.com';
 const DEFAULT_NAMESPACE = 'api/v1';
 
-export default class Client {
-  constructor(params) {
+export interface ClientParams {
+  host?: string;
+  namespace?: string;
+  authToken?: string;
+}
+
+export class Client {
+
+  host: string;
+  namespace: string;
+  authToken: string;
+  events: Events;
+  http: RestApi;
+  callSession: CallSession;
+  realtime: RealtimeConnection;
+  user: any;
+
+  constructor(params: ClientParams) {
     this.host = params.host || DEFAULT_HOST;
     this.namespace = params.namespace || DEFAULT_NAMESPACE;
     this.authToken = params.authToken;
@@ -28,7 +44,7 @@ export default class Client {
     this.realtime = null;
   }
 
-  fetch() {
+  fetch(): Promise<Client> {
     return this.getCurrentUser().then(() => {
       return this.getCurrentSession();
     }).then(() => {
@@ -36,7 +52,7 @@ export default class Client {
     });
   }
 
-  getCurrentUser() {
+  getCurrentUser(): Promise<any> {
     return Promise.resolve().then(() => {
       if (this.user) {
         return this.user;
@@ -50,27 +66,24 @@ export default class Client {
     });
   }
 
-  getCurrentSession() {
+  getCurrentSession(): Promise<CallSession> {
     this.callSession = new CallSession(this);
     return this.callSession.fetch();
   }
 
-  /**
-    * @private
-  */
-  _initializeRealtimeConnection() {
+  protected _initializeRealtimeConnection() {
     this.realtime = new RealtimeConnection({ host: this.host, authToken: this.authToken });
   }
 
-  on() {
-    this.events.on(...arguments);
+  on(eventName: string, callback: EventCallback) {
+    this.events.on(eventName, callback);
   }
 
-  off(eventName, callback) {
-    this.events.off(...arguments);
+  off(eventName: string, callback: EventCallback) {
+    this.events.off(eventName, callback);
   }
 
-  trigger() {
-    this.events.trigger(...arguments);
+  trigger(eventName: string, ...args: any[]) {
+    this.events.trigger(eventName, ...args);
   }
 }

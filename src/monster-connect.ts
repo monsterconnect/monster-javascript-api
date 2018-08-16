@@ -1,9 +1,9 @@
-import Client from './client';
+import { Client, ClientParams } from './client';
 
 const MonsterConnect = {
   Client,
 
-  createClient(params) {
+  createClient(params: ClientParams) {
     const client = new Client(params);
     return client.fetch();
   }

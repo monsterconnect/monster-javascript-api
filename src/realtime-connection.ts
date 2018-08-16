@@ -1,8 +1,30 @@
-import Faye from '../vendor/faye';
+import Faye from './faye';
+
+interface RealtimeConnectionParams {
+  host: string;
+  authToken: string;
+}
+
+interface WebSocketCallback {
+    (...args: any[]): void;
+}
+
+interface WebSocketMessage {
+  channel: string;
+  data?: any;
+  error?: any;
+  successful?: any;
+}
 
 export default class RealtimeConnection {
 
-  constructor(params) {
+  host: string;
+  authToken: string;
+  webSocketUrl: string;
+
+  protected _webSocketClient: any;
+
+  constructor(params: RealtimeConnectionParams) {
     this.host = params.host;
     this.authToken = params.authToken;
     this.webSocketUrl = this.host + '/ws';
@@ -13,29 +35,26 @@ export default class RealtimeConnection {
     this._webSocketClient.disconnect();
   }
 
-  /**
-    * @private
-  */
-  _initializeClient() {
+  protected _initializeClient(): Faye.Client {
     this._webSocketClient = new Faye.Client(this.webSocketUrl);
     // add this object as an extension so that incoming() and outgoing() will be called
     this._webSocketClient.addExtension(this);
     return this._webSocketClient;
   }
 
-  subscribe(channel, callback) {
+  subscribe(channel: string, callback: WebSocketCallback) {
     this._webSocketClient.subscribe(channel, callback);
   }
 
-  unsubscribe(channel, callback) {
+  unsubscribe(channel: string, callback: WebSocketCallback) {
     this._webSocketClient.unsubscribe(channel, callback);
   }
 
   get channels() {
-    this._webSocketClient._channels.getKeys();
+    return this._webSocketClient._channels.getKeys();
   }
 
-  disconnect(options = {}) {
+  disconnect(options: { force?: boolean } = {}) {
     // only disconnect if there are no more subscriptions or it is being forced
     if ((options.force) || (this.channels.length === 0)) {
       this._webSocketClient.disconnect();
@@ -45,7 +64,7 @@ export default class RealtimeConnection {
   }
 
   // occurs when an incoming message is received
-  incoming(message, callback) {
+  incoming(message: any, callback: WebSocketCallback) {
     if (message.channel !== "/meta/connect") {
       console.log("incoming", message);
     }
@@ -66,7 +85,7 @@ export default class RealtimeConnection {
   }
 
   // occurs when a message is to be sent
-  outgoing(message, callback) {
+  outgoing(message: any, callback: WebSocketCallback) {
     if (message.channel !== "/meta/connect") {
       console.log("outgoing", message);
     }

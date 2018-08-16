@@ -1,11 +1,51 @@
-import Events from './events';
+import { Events, EventCallback } from './events';
+import { Client } from './client';
+import { FetchResult } from './rest-api';
+import Lead from './lead';
+import { OutboundCall, OutboundCallChangedEventPayload, OutboundCallChangedEvent } from './outbound-call';
+
+class CallSessionModel {
+  id: string = 'current';
+  startedAt: Date;
+  endedAt: Date;
+  state: string = 'offline';
+}
+
+class CallSessionCredentials {
+  phoneNumber: string;
+  pin: string;
+}
+
+interface OutboundCalls {
+  [key: string]: OutboundCall;
+}
+
+interface OutboundCallChangedPayload {
+  id: string;
+  state: string;
+  leadId: string;
+  masterId: string;
+  startedAt: Date;
+  endedAt: Date;
+}
 
 export default class CallSession {
 
-  constructor(client) {
+  client: Client;
+  events: Events;
+  outboundCalls: OutboundCalls;
+  callSessionModel: CallSessionModel;
+
+  protected _subscribed: boolean = false;
+  protected _subscribedFn: (payload: any) => void;
+  protected _lastStateChangeTimestamp: number;
+
+
+  constructor(client: Client) {
     this.client = client;
     this.events = new Events();
     this.outboundCalls = {};
+    this.callSessionModel = new CallSessionModel();
     this._subscribe();
   }
 
@@ -15,51 +55,70 @@ export default class CallSession {
     this._unsubscribe();
   }
 
-  fetch() {
+  fetch(): Promise<CallSession> {
     return this.client.http.get(`call_sessions/current`).then((response) => {
       const data = response.body.call_session;
       if (data) {
-        this.id = data.id;
-        this.startedAt = data.started_at;
-        this.endedAt = data.ended_at;
-        this.state = data.state;
+        this.callSessionModel.id = String(data.id);
+        this.callSessionModel.startedAt = data.started_at && new Date(data.started_at);
+        this.callSessionModel.endedAt = data.ended_at && new Date(data.ended_at);
+        this.callSessionModel.state = data.state;
       }
       return this;
     });
   }
 
-  endCallSession() {
+  get id(): string {
+    return this.callSessionModel && this.callSessionModel.id;
+  }
+
+  get startedAt(): Date {
+    return this.callSessionModel && this.callSessionModel.startedAt;
+  }
+
+  get endedAt(): Date {
+    return this.callSessionModel && this.callSessionModel.endedAt;
+  }
+
+  get state(): string {
+    return this.callSessionModel && this.callSessionModel.state;
+  }
+
+  endCallSession(): Promise<FetchResult> {
     return this._sendAction('hangup');
   }
 
-  endOutboundCall() {
+  endOutboundCall(): Promise<FetchResult> {
     return this._sendAction('disconnect');
   }
 
-  beep() {
+  beep(): Promise<FetchResult> {
     return this._sendAction('beep');
   }
 
-  dialNext() {
+  dialNext(): Promise<FetchResult> {
     return this._sendAction('dial_next');
   }
 
-  callMe() {
+  callMe(): Promise<FetchResult> {
     return this._sendAction('call_me');
   }
 
-  pause() {
+  pause(): Promise<FetchResult> {
     return this._sendAction('pause_dialing');
   }
 
-  resume() {
+  resume(): Promise<FetchResult> {
     return this._sendAction('resume_dialing');
   }
 
-  getCallSessionCredentials() {
+  getCallSessionCredentials(): Promise<CallSessionCredentials> {
     const userId = this.client.user.id;
     return this.client.http.get(`users/${userId}/inbound_phone_credentials`).then((response) => {
-      return { phoneNumber: response.body.user.inbound_phone, pin: response.body.user.inbound_pin }
+      const result = new CallSessionCredentials();
+      result.phoneNumber = String(response.body.user.inbound_phone);
+      result.pin = String(response.body.user.inbound_pin);
+      return result;
     });
   }
 
@@ -70,7 +129,7 @@ export default class CallSession {
     * The _masterId_ property is a unique identifier from the external system,
     * such as the CRM's contact ID.
   */
-  submitLead(...leads) {
+  submitLead(...leads: Lead[]): Promise<FetchResult> {
     const data = {
       leads: leads.map((l) => {
         return {
@@ -91,21 +150,21 @@ export default class CallSession {
   /**
     * Clears the list of submitted leads.
   */
-  clearLeads() {
+  clearLeads(): Promise<FetchResult> {
     const path = this._getUrlPath('leads')
     return this.client.http.delete(path);
   }
 
-  on() {
-    this.events.on(...arguments);
+  on(eventName: string, callback: EventCallback) {
+    this.events.on(eventName, callback);
   }
 
-  off() {
-    this.events.off(...arguments);
+  off(eventName: string, callback: EventCallback) {
+    this.events.off(eventName, callback);
   }
 
-  trigger() {
-    this.events.trigger(...arguments);
+  trigger(eventName: string, ...args: any[]) {
+    this.events.trigger(eventName, ...args);
   }
 
   /**
@@ -113,16 +172,13 @@ export default class CallSession {
     * lead_list: A data source and lead list is loaded and selected
     * queue: The call session will be requesting leads in realtime
   */
-  setLeadSelectionMethod(method) {
+  setLeadSelectionMethod(method: string): Promise<FetchResult> {
     const path = this._getUrlPath();
     const data = { call_session: { lead_selection_method: method } };
     return this.client.http.put(path, data);
   }
 
-  /**
-    * @private
-  */
-  _getUrlPath(action) {
+  protected _getUrlPath(action: string = null): string {
     const base = `call_sessions/${this.id}`;
     if (action) {
       return base + '/' + action;
@@ -131,18 +187,12 @@ export default class CallSession {
     }
   }
 
-  /**
-    * @private
-  */
-  _sendAction(action) {
+  protected _sendAction(action: string = null): Promise<FetchResult> {
     const path = this._getUrlPath(action);
     return this.client.http.get(path);
   }
 
-  /**
-    * @private
-  */
-  _subscribe() {
+  protected _subscribe() {
     if (!this._subscribed) {
       const userId = this.client.user.id;
       const channel = `/users/${userId}/call`;
@@ -152,10 +202,7 @@ export default class CallSession {
     }
   }
 
-  /**
-    * @private
-  */
-  _unsubscribe() {
+  protected _unsubscribe() {
     if (this._subscribed) {
       const userId = this.client.user.id;
       const channel = `/users/${userId}/call`;
@@ -164,10 +211,7 @@ export default class CallSession {
     }
   }
 
-  /**
-    * @private
-  */
-  _handleRealtimeEvent(payload) {
+  protected _handleRealtimeEvent(payload: any) {
     switch(payload.event) {
       case 'state_changed':
         return this._handleStateChanged(payload);
@@ -179,13 +223,10 @@ export default class CallSession {
     console.warn(`Unknown call event: "${payload.event}"`, payload);
   }
 
-  /**
-    * @private
-  */
-  _handleStateChanged(payload) {
-    this.id = payload.call_session_id;
-    this.state = payload.to;
+  protected _handleStateChanged(payload: any) {
     if (!this._lastStateChangeTimestamp || this._lastStateChangeTimestamp < payload._time) {
+      this.callSessionModel.id = payload.call_session_id;
+      this.callSessionModel.state = payload.to;
       this._lastStateChangeTimestamp = payload._time;
       this.trigger('stateChanged', {
         id: payload.call_session_id,
@@ -195,30 +236,17 @@ export default class CallSession {
     }
   }
 
-  /**
-    * @private
-  */
-  _handleOutboundCallChanged(payload) {
+  protected _handleOutboundCallChanged(payload: OutboundCallChangedEventPayload) {
     const id = payload.id;
-    this.outboundCalls[id] = this.outboundCalls[id] || {};
+
+    const event = new OutboundCallChangedEvent(payload);
+    this.outboundCalls[id] = this.outboundCalls[id] || new OutboundCall(event);
     const outboundCall = this.outboundCalls[id];
-    if (!outboundCall.lastStateEvent || outboundCall.lastStateEvent._time < payload._time) {
-      outboundCall.lastStateEvent = payload;
-      this.trigger('outboundCallChanged', {
-        id: payload.id,
-        state: payload.state,
-        leadId: payload.lead_id,
-        masterId: payload.master_id,
-        startedAt: (payload.started_at && new Date(payload.started_at)),
-        endedAt: (payload.ended_at && new Date(payload.ended_at))
-      });
-    }
+    outboundCall.eventReceived(event);
+    this.trigger('outboundCallChanged', event);
   }
 
-  /**
-    * @private
-  */
-  _handleLeadRequested(payload) {
+  protected _handleLeadRequested(payload: any) {
     this.trigger('leadRequested');
   }
 }
