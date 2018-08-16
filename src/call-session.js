@@ -208,6 +208,7 @@ export default class CallSession {
         id: payload.id,
         state: payload.state,
         leadId: payload.lead_id,
+        masterId: payload.master_id,
         startedAt: (payload.started_at && new Date(payload.started_at)),
         endedAt: (payload.ended_at && new Date(payload.ended_at))
       });
