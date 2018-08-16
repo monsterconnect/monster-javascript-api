@@ -11,6 +11,7 @@ export default class CallSession {
 
   destroy() {
     this.events.destroy();
+    this.events = null;
     this._unsubscribe();
   }
 

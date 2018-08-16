@@ -17,6 +17,17 @@ export default class Client {
     this.http = new RestApi({ host: this.host, namespace: this.namespace, authToken: this.authToken });
   }
 
+  destroy() {
+    if (this.callSession) {
+      this.callSession.destroy();
+      this.callSession = null;
+    }
+    this.events.destroy();
+    this.events = null;
+    this.realtime.destroy();
+    this.realtime = null;
+  }
+
   fetch() {
     return this.getCurrentUser().then(() => {
       return this.getCurrentSession();

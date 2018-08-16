@@ -9,6 +9,10 @@ export default class RealtimeConnection {
     this._initializeClient();
   }
 
+  destroy() {
+    this._webSocketClient.disconnect();
+  }
+
   /**
     * @private
   */

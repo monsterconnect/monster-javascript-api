@@ -1,5 +1,14 @@
 export default class Events {
   constructor() {
+    this.clear();
+  }
+
+  destroy() {
+    this.clear();
+    this.events = null;
+  }
+
+  clear() {
     this.events = {};
   }
 
