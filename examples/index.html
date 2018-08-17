@@ -46,9 +46,6 @@
 
             client.callSession.on('stateChanged', (data) => {
               updateCallState(data);
-              if (data.state === 'initializing') {
-                initializeCallSession();
-              }
             });
 
             client.callSession.on('outboundCallChanged', (data) => {
@@ -64,10 +61,6 @@
         localStorage['host'] = host;
         localStorage['authToken'] = authToken;
         connect();
-      }
-
-      function initializeCallSession() {
-        //return mcClient.callSession.setLeadSelectionMethod('queue');
       }
 
       function updateCallState(data) {
