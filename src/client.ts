@@ -44,6 +44,7 @@ export class Client {
     this.realtime = null;
   }
 
+  /** Initializes the client by retrieving the required information from the MonsterConnect API. */
   fetch(): Promise<Client> {
     return this.getCurrentUser().then(() => {
       return this.getCurrentSession();
@@ -52,6 +53,7 @@ export class Client {
     });
   }
 
+  /** Sends a request to the MonsterConnect API to retrieve the current user information. */
   getCurrentUser(): Promise<any> {
     return Promise.resolve().then(() => {
       if (this.user) {
@@ -66,6 +68,7 @@ export class Client {
     });
   }
 
+  /** Gets the current session information. */
   getCurrentSession(): Promise<CallSession> {
     this.callSession = new CallSession(this);
     return this.callSession.fetch();

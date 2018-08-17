@@ -2,59 +2,57 @@ import { Events, EventCallback } from './events';
 import { Client } from './client';
 import { FetchResult } from './rest-api';
 import Lead from './lead';
-import { OutboundCall, OutboundCallChangedEventPayload, OutboundCallChangedEvent } from './outbound-call';
+import { OutboundCall } from './outbound-call';
+import { CallSessionEventName, CallSessionEvents } from './call-session-events';
+import { CallSessionState, CallSessionChangedEvent } from './call-session-events';
+import { OutboundCallChangedEvent } from './call-session-events';
 
 class CallSessionModel {
   id: string = 'current';
   startedAt: Date;
   endedAt: Date;
-  state: string = 'offline';
+  state: CallSessionState = 'offline';
+
+  protected _lastEvent: CallSessionChangedEvent;
+
+  eventReceived(event: CallSessionChangedEvent) {
+    if (!this._lastEvent || event._time > this._lastEvent._time) {
+      this._lastEvent = event;
+      this.id = event.id;
+      this.state = event.state;
+    }
+  }
 }
 
-class CallSessionCredentials {
+interface CallSessionCredentials {
   phoneNumber: string;
   pin: string;
 }
 
 interface OutboundCalls {
-  [key: string]: OutboundCall;
-}
-
-interface OutboundCallChangedPayload {
-  id: string;
-  state: string;
-  leadId: string;
-  masterId: string;
-  startedAt: Date;
-  endedAt: Date;
+  [id: string]: OutboundCall;
 }
 
 export default class CallSession {
 
   client: Client;
-  events: Events;
+  events: CallSessionEvents;
   outboundCalls: OutboundCalls;
   callSessionModel: CallSessionModel;
 
-  protected _subscribed: boolean = false;
-  protected _subscribedFn: (payload: any) => void;
-  protected _lastStateChangeTimestamp: number;
-
-
   constructor(client: Client) {
     this.client = client;
-    this.events = new Events();
     this.outboundCalls = {};
     this.callSessionModel = new CallSessionModel();
-    this._subscribe();
+    this._initializeEvents();
   }
 
   destroy() {
     this.events.destroy();
     this.events = null;
-    this._unsubscribe();
   }
 
+  /** Fetches the current call session information from the MonsterConnect API. */
   fetch(): Promise<CallSession> {
     return this.client.http.get(`call_sessions/current`).then((response) => {
       const data = response.body.call_session;
@@ -68,57 +66,75 @@ export default class CallSession {
     });
   }
 
+  /** The ID of the call session. */
   get id(): string {
     return this.callSessionModel && this.callSessionModel.id;
   }
 
+  /** The timestamp that the call session started. */
   get startedAt(): Date {
     return this.callSessionModel && this.callSessionModel.startedAt;
   }
 
+  /** The timestamp that the call session ended. */
   get endedAt(): Date {
     return this.callSessionModel && this.callSessionModel.endedAt;
   }
 
-  get state(): string {
-    return this.callSessionModel && this.callSessionModel.state;
+  /** The current state of the call session. **/
+  get state(): CallSessionState {
+    if (this.callSessionModel) {
+      return this.callSessionModel.state;
+    }
   }
 
+  /** Sends a request to hang up the call session. */
   endCallSession(): Promise<FetchResult> {
     return this._sendAction('hangup');
   }
 
+  /** Sends a request to hang up the outbound call currently connected to this call session. */
   endOutboundCall(): Promise<FetchResult> {
     return this._sendAction('disconnect');
   }
 
+  /** Sends a requet to play an audible beep (for testing audio and latency). */
   beep(): Promise<FetchResult> {
     return this._sendAction('beep');
   }
 
+  /** Dial the next lead in the list and connect immediately. */
   dialNext(): Promise<FetchResult> {
     return this._sendAction('dial_next');
   }
 
+  /** Initiate a call session by calling the user's phone number. */
   callMe(): Promise<FetchResult> {
     return this._sendAction('call_me');
   }
 
-  pause(): Promise<FetchResult> {
-    return this._sendAction('pause_dialing');
-  }
-
+  /** Start team dialing. */
   resume(): Promise<FetchResult> {
     return this._sendAction('resume_dialing');
   }
 
+  /** Pause team dialing. */
+  pause(): Promise<FetchResult> {
+    return this._sendAction('pause_dialing');
+  }
+
+  /**
+    * Sends a request to initiate a call session by returning a phone number
+    * and pin to enter.  These credentials are one-time use, and calling it
+    * will invalidate all previously created credentials.
+  */
   getCallSessionCredentials(): Promise<CallSessionCredentials> {
     const userId = this.client.user.id;
     return this.client.http.get(`users/${userId}/inbound_phone_credentials`).then((response) => {
-      const result = new CallSessionCredentials();
-      result.phoneNumber = String(response.body.user.inbound_phone);
-      result.pin = String(response.body.user.inbound_pin);
-      return result;
+      return {
+        phoneNumber: String(response.body.user.inbound_phone),
+        pin: String(response.body.user.inbound_pin)
+      };
     });
   }
 
@@ -155,15 +171,18 @@ export default class CallSession {
     return this.client.http.delete(path);
   }
 
-  on(eventName: string, callback: EventCallback) {
+  /** Subscribe to the specified event.  The specified callback will be triggered.  */
+  on(eventName: CallSessionEventName, callback: EventCallback) {
     this.events.on(eventName, callback);
   }
 
-  off(eventName: string, callback: EventCallback) {
+  /** Unsubscribe the specified callback from the specified event. */
+  off(eventName: CallSessionEventName, callback: EventCallback) {
     this.events.off(eventName, callback);
   }
 
-  trigger(eventName: string, ...args: any[]) {
+  /** Trigger the specified event.  All subsequent arguments are passed to the callbacks. */
+  trigger(eventName: CallSessionEventName, ...args: any[]) {
     this.events.trigger(eventName, ...args);
   }
 
@@ -192,61 +211,21 @@ export default class CallSession {
     return this.client.http.get(path);
   }
 
-  protected _subscribe() {
-    if (!this._subscribed) {
-      const userId = this.client.user.id;
-      const channel = `/users/${userId}/call`;
-      this._subscribedFn = (payload) => this._handleRealtimeEvent(payload);
-      this.client.realtime.subscribe(channel, this._subscribedFn);
-      this._subscribed = true;
-    }
+  protected _stateChanged(event: CallSessionChangedEvent) {
+    this.callSessionModel.eventReceived(event);
   }
 
-  protected _unsubscribe() {
-    if (this._subscribed) {
-      const userId = this.client.user.id;
-      const channel = `/users/${userId}/call`;
-      this.client.realtime.unsubscribe(channel, this._subscribedFn);
-      this._subscribed = false;
-    }
-  }
-
-  protected _handleRealtimeEvent(payload: any) {
-    switch(payload.event) {
-      case 'state_changed':
-        return this._handleStateChanged(payload);
-      case 'lead_outbound_call_state':
-        return this._handleOutboundCallChanged(payload);
-      case 'request_lead':
-        return this._handleLeadRequested(payload);
-    }
-    console.warn(`Unknown call event: "${payload.event}"`, payload);
-  }
-
-  protected _handleStateChanged(payload: any) {
-    if (!this._lastStateChangeTimestamp || this._lastStateChangeTimestamp < payload._time) {
-      this.callSessionModel.id = payload.call_session_id;
-      this.callSessionModel.state = payload.to;
-      this._lastStateChangeTimestamp = payload._time;
-      this.trigger('stateChanged', {
-        id: payload.call_session_id,
-        state: payload.to,
-        reason: payload.reason
-      });
-    }
-  }
-
-  protected _handleOutboundCallChanged(payload: OutboundCallChangedEventPayload) {
-    const id = payload.id;
-
-    const event = new OutboundCallChangedEvent(payload);
+  protected _outboundCallChanged(event: OutboundCallChangedEvent) {
+    const id = event.id;
     this.outboundCalls[id] = this.outboundCalls[id] || new OutboundCall(event);
     const outboundCall = this.outboundCalls[id];
     outboundCall.eventReceived(event);
-    this.trigger('outboundCallChanged', event);
   }
 
-  protected _handleLeadRequested(payload: any) {
-    this.trigger('leadRequested');
+  protected _initializeEvents() {
+    this.events = new CallSessionEvents(this.client);
+    this.events.on('stateChanged', (event: CallSessionChangedEvent) => this._stateChanged(event));
+    this.events.on('outboundCallChanged', (event: OutboundCallChangedEvent) => this._outboundCallChanged(event));
   }
+
 }

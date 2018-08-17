@@ -1,10 +1,4 @@
-import Promise from 'promise-polyfill';
-
-if (!window.Promise) {
-  window.Promise = Promise;
-}
-
-import 'whatwg-fetch';
+import '../vendor';
 
 import MonsterConnect from './monster-connect';
 

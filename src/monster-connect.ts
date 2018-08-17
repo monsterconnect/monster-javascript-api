@@ -1,9 +1,11 @@
 import { Client, ClientParams } from './client';
 
-const MonsterConnect = {
-  Client,
+class MonsterConnect {
+  static get Client() {
+    return Client;
+  }
 
-  createClient(params: ClientParams) {
+  static createClient(params: ClientParams) {
     const client = new Client(params);
     return client.fetch();
   }

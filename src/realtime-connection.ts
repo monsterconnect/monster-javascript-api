@@ -1,4 +1,4 @@
-import Faye from './faye';
+import Faye from '../vendor/faye-shim';
 
 interface RealtimeConnectionParams {
   host: string;
@@ -6,7 +6,7 @@ interface RealtimeConnectionParams {
 }
 
 interface WebSocketCallback {
-    (...args: any[]): void;
+  (...args: any[]): void;
 }
 
 interface WebSocketMessage {

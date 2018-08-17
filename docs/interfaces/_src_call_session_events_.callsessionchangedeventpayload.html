@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>OutboundCallChangedEventPayload | MonsterConnect Javascript Library</title>
+	<title>CallSessionChangedEventPayload | MonsterConnect Javascript Library</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,24 +56,31 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_src_outbound_call_.html">&quot;src/outbound-call&quot;</a>
+					<a href="../modules/_src_call_session_events_.html">&quot;src/call-session-events&quot;</a>
 				</li>
 				<li>
-					<a href="_src_outbound_call_.outboundcallchangedeventpayload.html">OutboundCallChangedEventPayload</a>
+					<a href="_src_call_session_events_.callsessionchangedeventpayload.html">CallSessionChangedEventPayload</a>
 				</li>
 			</ul>
-			<h1>Interface OutboundCallChangedEventPayload</h1>
+			<h1>Interface CallSessionChangedEventPayload</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The message payload sent through the realtime connection to indicate the call session changed.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">OutboundCallChangedEventPayload</span>
+						<span class="target">CallSessionChangedEventPayload</span>
 					</li>
 				</ul>
 			</section>
@@ -84,13 +91,10 @@
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_outbound_call_.outboundcallchangedeventpayload.html#_time" class="tsd-kind-icon">_time</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_outbound_call_.outboundcallchangedeventpayload.html#ended_at" class="tsd-kind-icon">ended_<wbr>at</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_outbound_call_.outboundcallchangedeventpayload.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_outbound_call_.outboundcallchangedeventpayload.html#lead_id" class="tsd-kind-icon">lead_<wbr>id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_outbound_call_.outboundcallchangedeventpayload.html#master_id" class="tsd-kind-icon">master_<wbr>id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_outbound_call_.outboundcallchangedeventpayload.html#started_at" class="tsd-kind-icon">started_<wbr>at</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_outbound_call_.outboundcallchangedeventpayload.html#state" class="tsd-kind-icon">state</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_call_session_events_.callsessionchangedeventpayload.html#_time" class="tsd-kind-icon">_time</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_call_session_events_.callsessionchangedeventpayload.html#call_session_id" class="tsd-kind-icon">call_<wbr>session_<wbr>id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_call_session_events_.callsessionchangedeventpayload.html#reason" class="tsd-kind-icon">reason</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_call_session_events_.callsessionchangedeventpayload.html#to" class="tsd-kind-icon">to</a></li>
 							</ul>
 						</section>
 					</div>
@@ -104,67 +108,37 @@
 					<div class="tsd-signature tsd-kind-icon">_time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/outbound-call.ts:28</li>
+							<li>Defined in src/call-session-events.ts:13</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-					<a name="ended_at" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ended_<wbr>at</h3>
-					<div class="tsd-signature tsd-kind-icon">ended_<wbr>at<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
+					<a name="call_session_id" class="tsd-anchor"></a>
+					<h3>call_<wbr>session_<wbr>id</h3>
+					<div class="tsd-signature tsd-kind-icon">call_<wbr>session_<wbr>id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/outbound-call.ts:27</li>
+							<li>Defined in src/call-session-events.ts:10</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-					<a name="id" class="tsd-anchor"></a>
-					<h3>id</h3>
-					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="reason" class="tsd-anchor"></a>
+					<h3>reason</h3>
+					<div class="tsd-signature tsd-kind-icon">reason<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/outbound-call.ts:22</li>
+							<li>Defined in src/call-session-events.ts:12</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-					<a name="lead_id" class="tsd-anchor"></a>
-					<h3>lead_<wbr>id</h3>
-					<div class="tsd-signature tsd-kind-icon">lead_<wbr>id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="to" class="tsd-anchor"></a>
+					<h3>to</h3>
+					<div class="tsd-signature tsd-kind-icon">to<span class="tsd-signature-symbol">:</span> <a href="../modules/_src_call_session_events_.html#callsessionstate" class="tsd-signature-type">CallSessionState</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/outbound-call.ts:24</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-					<a name="master_id" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> master_<wbr>id</h3>
-					<div class="tsd-signature tsd-kind-icon">master_<wbr>id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in src/outbound-call.ts:25</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-					<a name="started_at" class="tsd-anchor"></a>
-					<h3>started_<wbr>at</h3>
-					<div class="tsd-signature tsd-kind-icon">started_<wbr>at<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in src/outbound-call.ts:26</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-					<a name="state" class="tsd-anchor"></a>
-					<h3>state</h3>
-					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="../modules/_src_outbound_call_.html#outboundcallstate" class="tsd-signature-type">OutboundCallState</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in src/outbound-call.ts:23</li>
+							<li>Defined in src/call-session-events.ts:11</li>
 						</ul>
 					</aside>
 				</section>
@@ -188,6 +162,9 @@
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_src_call_session_.html">"src/call-<wbr>session"</a>
 					</li>
+					<li class="current tsd-kind-external-module tsd-is-external">
+						<a href="../modules/_src_call_session_events_.html">"src/call-<wbr>session-<wbr>events"</a>
+					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_src_client_.html">"src/client"</a>
 					</li>
@@ -195,15 +172,12 @@
 						<a href="../modules/_src_events_.html">"src/events"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="../modules/_src_faye_.html">"src/faye"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_src_lead_.html">"src/lead"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_src_monster_connect_.html">"src/monster-<wbr>connect"</a>
 					</li>
-					<li class="current tsd-kind-external-module tsd-is-external">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_src_outbound_call_.html">"src/outbound-<wbr>call"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
@@ -215,48 +189,60 @@
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_vendor_faye_.html">"vendor/faye"</a>
 					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="../modules/_vendor_faye_shim_.html">"vendor/faye-<wbr>shim"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="../modules/_vendor_index_.html">"vendor/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="../modules/_vendor_promise_shim_.html">"vendor/promise-<wbr>shim"</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
-						<a href="../classes/_src_outbound_call_.outboundcall.html" class="tsd-kind-icon">Outbound<wbr>Call</a>
+						<a href="../classes/_src_call_session_events_.callsessionchangedevent.html" class="tsd-kind-icon">Call<wbr>Session<wbr>Changed<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
-						<a href="../classes/_src_outbound_call_.outboundcallchangedevent.html" class="tsd-kind-icon">Outbound<wbr>Call<wbr>Changed<wbr>Event</a>
+						<a href="../classes/_src_call_session_events_.callsessionevents.html" class="tsd-kind-icon">Call<wbr>Session<wbr>Events</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
+						<a href="../classes/_src_call_session_events_.outboundcallchangedevent.html" class="tsd-kind-icon">Outbound<wbr>Call<wbr>Changed<wbr>Event</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-is-external">
-						<a href="_src_outbound_call_.outboundcallchangedeventpayload.html" class="tsd-kind-icon">Outbound<wbr>Call<wbr>Changed<wbr>Event<wbr>Payload</a>
+						<a href="_src_call_session_events_.callsessionchangedeventpayload.html" class="tsd-kind-icon">Call<wbr>Session<wbr>Changed<wbr>Event<wbr>Payload</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="_src_outbound_call_.outboundcallchangedeventpayload.html#_time" class="tsd-kind-icon">_time</a>
+								<a href="_src_call_session_events_.callsessionchangedeventpayload.html#_time" class="tsd-kind-icon">_time</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="_src_outbound_call_.outboundcallchangedeventpayload.html#ended_at" class="tsd-kind-icon">ended_<wbr>at</a>
+								<a href="_src_call_session_events_.callsessionchangedeventpayload.html#call_session_id" class="tsd-kind-icon">call_<wbr>session_<wbr>id</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="_src_outbound_call_.outboundcallchangedeventpayload.html#id" class="tsd-kind-icon">id</a>
+								<a href="_src_call_session_events_.callsessionchangedeventpayload.html#reason" class="tsd-kind-icon">reason</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="_src_outbound_call_.outboundcallchangedeventpayload.html#lead_id" class="tsd-kind-icon">lead_<wbr>id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="_src_outbound_call_.outboundcallchangedeventpayload.html#master_id" class="tsd-kind-icon">master_<wbr>id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="_src_outbound_call_.outboundcallchangedeventpayload.html#started_at" class="tsd-kind-icon">started_<wbr>at</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="_src_outbound_call_.outboundcallchangedeventpayload.html#state" class="tsd-kind-icon">state</a>
+								<a href="_src_call_session_events_.callsessionchangedeventpayload.html#to" class="tsd-kind-icon">to</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<a href="../modules/_src_outbound_call_.html#outboundcallstate" class="tsd-kind-icon">Outbound<wbr>Call<wbr>State</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-external">
+						<a href="_src_call_session_events_.outboundcallchangedeventpayload.html" class="tsd-kind-icon">Outbound<wbr>Call<wbr>Changed<wbr>Event<wbr>Payload</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-external">
+						<a href="../modules/_src_call_session_events_.html#callsessioneventname" class="tsd-kind-icon">Call<wbr>Session<wbr>Event<wbr>Name</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-external">
+						<a href="../modules/_src_call_session_events_.html#callsessionstate" class="tsd-kind-icon">Call<wbr>Session<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-external">
+						<a href="../modules/_src_call_session_events_.html#outboundcallstate" class="tsd-kind-icon">Outbound<wbr>Call<wbr>State</a>
 					</li>
 				</ul>
 			</nav>

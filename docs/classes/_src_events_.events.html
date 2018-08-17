@@ -69,11 +69,24 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Subscribe and unsubscribe to named events.
+						When an event is triggered, all listeners will be fired.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
 						<span class="target">Events</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="_src_call_session_events_.callsessionevents.html" class="tsd-signature-type">CallSessionEvents</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -119,7 +132,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/events.ts:9</li>
+									<li>Defined in src/events.ts:13</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_events_.events.html" class="tsd-signature-type">Events</a></h4>
@@ -135,7 +148,7 @@
 					<div class="tsd-signature tsd-kind-icon">events<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_src_events_.eventlist.html" class="tsd-signature-type">EventList</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/events.ts:14</li>
+							<li>Defined in src/events.ts:18</li>
 						</ul>
 					</aside>
 				</section>
@@ -152,7 +165,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/events.ts:41</li>
+									<li>Defined in src/events.ts:60</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -175,9 +188,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/events.ts:21</li>
+									<li>Defined in src/events.ts:27</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Clears the event list</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -192,9 +210,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/events.ts:16</li>
+									<li>Defined in src/events.ts:21</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Removes all event listeners and shuts down.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -209,9 +232,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/events.ts:30</li>
+									<li>Defined in src/events.ts:45</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Unsubsribe from an event with the specified name and previously subscribed callback.
+									Be sure to send the same exact instance of the callback (i.e. the bound function).</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -235,9 +264,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/events.ts:25</li>
+									<li>Defined in src/events.ts:36</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Subsribe to an event with the specified name.
+										When the event is triggered, the callback will occur.
+									Be sure to bind the callback to the proper context (i.e. &quot;this&quot;) prior to subscribing.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -261,9 +297,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/events.ts:36</li>
+									<li>Defined in src/events.ts:55</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Trigger the specified event.
+									All subsequent arguments will be passed to the callback.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -298,13 +340,13 @@
 						<a href="../modules/_src_call_session_.html">"src/call-<wbr>session"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="../modules/_src_call_session_events_.html">"src/call-<wbr>session-<wbr>events"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_src_client_.html">"src/client"</a>
 					</li>
 					<li class="current tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_src_events_.html">"src/events"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="../modules/_src_faye_.html">"src/faye"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_src_lead_.html">"src/lead"</a>
@@ -323,6 +365,15 @@
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_vendor_faye_.html">"vendor/faye"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="../modules/_vendor_faye_shim_.html">"vendor/faye-<wbr>shim"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="../modules/_vendor_index_.html">"vendor/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="../modules/_vendor_promise_shim_.html">"vendor/promise-<wbr>shim"</a>
 					</li>
 				</ul>
 			</nav>
