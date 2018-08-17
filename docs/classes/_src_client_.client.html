@@ -90,12 +90,10 @@
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_src_client_.client.html#authtoken" class="tsd-kind-icon">auth<wbr>Token</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_src_client_.client.html#callsession" class="tsd-kind-icon">call<wbr>Session</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_src_client_.client.html#config" class="tsd-kind-icon">config</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_src_client_.client.html#events" class="tsd-kind-icon">events</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_src_client_.client.html#host" class="tsd-kind-icon">host</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_src_client_.client.html#http" class="tsd-kind-icon">http</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_src_client_.client.html#namespace" class="tsd-kind-icon">namespace</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_src_client_.client.html#realtime" class="tsd-kind-icon">realtime</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_src_client_.client.html#user" class="tsd-kind-icon">user</a></li>
 							</ul>
@@ -122,19 +120,19 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Client<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_client_.clientparams.html" class="tsd-signature-type">ClientParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_client_.client.html" class="tsd-signature-type">Client</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Client<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_config_.configparams.html" class="tsd-signature-type">ConfigParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_client_.client.html" class="tsd-signature-type">Client</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client.ts:24</li>
+									<li>Defined in src/client.ts:13</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>params: <a href="../interfaces/_src_client_.clientparams.html" class="tsd-signature-type">ClientParams</a></h5>
+									<h5>params: <a href="../interfaces/_src_config_.configparams.html" class="tsd-signature-type">ConfigParams</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_src_client_.client.html" class="tsd-signature-type">Client</a></h4>
@@ -145,22 +143,22 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
-					<a name="authtoken" class="tsd-anchor"></a>
-					<h3>auth<wbr>Token</h3>
-					<div class="tsd-signature tsd-kind-icon">auth<wbr>Token<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in src/client.ts:19</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
 					<a name="callsession" class="tsd-anchor"></a>
 					<h3>call<wbr>Session</h3>
 					<div class="tsd-signature tsd-kind-icon">call<wbr>Session<span class="tsd-signature-symbol">:</span> <a href="_src_call_session_.callsession.html" class="tsd-signature-type">CallSession</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/client.ts:22</li>
+							<li>Defined in src/client.ts:11</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="config" class="tsd-anchor"></a>
+					<h3>config</h3>
+					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <a href="_src_config_.config.html" class="tsd-signature-type">Config</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/client.ts:8</li>
 						</ul>
 					</aside>
 				</section>
@@ -170,17 +168,7 @@
 					<div class="tsd-signature tsd-kind-icon">events<span class="tsd-signature-symbol">:</span> <a href="_src_events_.events.html" class="tsd-signature-type">Events</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/client.ts:20</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
-					<a name="host" class="tsd-anchor"></a>
-					<h3>host</h3>
-					<div class="tsd-signature tsd-kind-icon">host<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in src/client.ts:17</li>
+							<li>Defined in src/client.ts:9</li>
 						</ul>
 					</aside>
 				</section>
@@ -190,17 +178,7 @@
 					<div class="tsd-signature tsd-kind-icon">http<span class="tsd-signature-symbol">:</span> <a href="_src_rest_api_.restapi.html" class="tsd-signature-type">RestApi</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/client.ts:21</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
-					<a name="namespace" class="tsd-anchor"></a>
-					<h3>namespace</h3>
-					<div class="tsd-signature tsd-kind-icon">namespace<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in src/client.ts:18</li>
+							<li>Defined in src/client.ts:10</li>
 						</ul>
 					</aside>
 				</section>
@@ -210,7 +188,7 @@
 					<div class="tsd-signature tsd-kind-icon">realtime<span class="tsd-signature-symbol">:</span> <a href="_src_realtime_connection_.realtimeconnection.html" class="tsd-signature-type">RealtimeConnection</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/client.ts:23</li>
+							<li>Defined in src/client.ts:12</li>
 						</ul>
 					</aside>
 				</section>
@@ -220,7 +198,7 @@
 					<div class="tsd-signature tsd-kind-icon">user<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/client.ts:24</li>
+							<li>Defined in src/client.ts:13</li>
 						</ul>
 					</aside>
 				</section>
@@ -237,7 +215,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client.ts:77</li>
+									<li>Defined in src/client.ts:64</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -254,7 +232,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client.ts:36</li>
+									<li>Defined in src/client.ts:23</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -271,7 +249,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client.ts:48</li>
+									<li>Defined in src/client.ts:35</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -293,7 +271,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client.ts:72</li>
+									<li>Defined in src/client.ts:59</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -315,7 +293,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client.ts:57</li>
+									<li>Defined in src/client.ts:44</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -337,7 +315,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client.ts:85</li>
+									<li>Defined in src/client.ts:72</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -363,7 +341,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client.ts:81</li>
+									<li>Defined in src/client.ts:68</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -389,7 +367,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client.ts:89</li>
+									<li>Defined in src/client.ts:76</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -430,6 +408,9 @@
 					</li>
 					<li class="current tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_src_client_.html">"src/client"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="../modules/_src_config_.html">"src/config"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_src_events_.html">"src/events"</a>
@@ -474,22 +455,16 @@
 								<a href="_src_client_.client.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
-								<a href="_src_client_.client.html#authtoken" class="tsd-kind-icon">auth<wbr>Token</a>
+								<a href="_src_client_.client.html#callsession" class="tsd-kind-icon">call<wbr>Session</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
-								<a href="_src_client_.client.html#callsession" class="tsd-kind-icon">call<wbr>Session</a>
+								<a href="_src_client_.client.html#config" class="tsd-kind-icon">config</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
 								<a href="_src_client_.client.html#events" class="tsd-kind-icon">events</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
-								<a href="_src_client_.client.html#host" class="tsd-kind-icon">host</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
 								<a href="_src_client_.client.html#http" class="tsd-kind-icon">http</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
-								<a href="_src_client_.client.html#namespace" class="tsd-kind-icon">namespace</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
 								<a href="_src_client_.client.html#realtime" class="tsd-kind-icon">realtime</a>
@@ -525,15 +500,6 @@
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-external">
-						<a href="../interfaces/_src_client_.clientparams.html" class="tsd-kind-icon">Client<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<a href="../modules/_src_client_.html#default_host" class="tsd-kind-icon">DEFAULT_<wbr>HOST</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<a href="../modules/_src_client_.html#default_namespace" class="tsd-kind-icon">DEFAULT_<wbr>NAMESPACE</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

@@ -6,6 +6,7 @@ import { OutboundCall } from './outbound-call';
 import { CallSessionEventName, CallSessionEvents } from './call-session-events';
 import { CallSessionState, CallSessionChangedEvent } from './call-session-events';
 import { OutboundCallChangedEvent } from './call-session-events';
+import { LeadSelectionMethod } from './config';
 
 class CallSessionModel {
   id: string = 'current';
@@ -188,12 +189,13 @@ export default class CallSession {
 
   /**
     * Specifies how the leads will be selected. Valid options are:
-    * lead_list: A data source and lead list is loaded and selected
+    * list: A data source and lead list is loaded and selected
     * queue: The call session will be requesting leads in realtime
   */
-  setLeadSelectionMethod(method: string): Promise<FetchResult> {
+  setLeadSelectionMethod(method: LeadSelectionMethod): Promise<FetchResult> {
     const path = this._getUrlPath();
-    const data = { call_session: { lead_selection_method: method } };
+    const m = method === 'list' ? 'lead_list' : method;
+    const data = { call_session: { lead_selection_method: m } };
     return this.client.http.put(path, data);
   }
 
@@ -213,6 +215,16 @@ export default class CallSession {
 
   protected _stateChanged(event: CallSessionChangedEvent) {
     this.callSessionModel.eventReceived(event);
+    if (event.state === 'initializing') {
+      this._initializeLeadSelectionMethod();
+    }
+  }
+
+  protected _initializeLeadSelectionMethod() {
+    const leadSelectionMethod = this.client.config.leadSelectionMethod;
+    if (leadSelectionMethod) {
+      return this.setLeadSelectionMethod(leadSelectionMethod);
+    }
   }
 
   protected _outboundCallChanged(event: OutboundCallChangedEvent) {

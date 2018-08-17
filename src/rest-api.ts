@@ -1,3 +1,5 @@
+import { Config } from './config';
+
 interface RestApiParams {
   authToken: string;
   host: string;
@@ -19,14 +21,10 @@ export class FetchResult {
 
 export class RestApi {
 
-  authToken: string;
-  host: string;
-  namespace: string;
+  config: Config;
 
-  constructor(params: RestApiParams) {
-    this.authToken = params.authToken;
-    this.host = params.host;
-    this.namespace = params.namespace;
+  constructor(config: Config) {
+    this.config = config;
   }
 
   get(path: string, queryParams: QueryParams = null): Promise<FetchResult> {
@@ -78,7 +76,7 @@ export class RestApi {
   }
 
   protected _buildUrl(path: string): string {
-    return [ this.host, this.namespace, path ].join('/');
+    return [ this.config.host, this.config.namespace, path ].join('/');
   }
 
   protected _buildRequestParams(params: {} = {}): {} {
@@ -87,7 +85,7 @@ export class RestApi {
       cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Token token="${this.authToken}"`
+        Authorization: `Token token="${this.config.authToken}"`
       }
     };
     return Object.assign({}, defaultParams, params);

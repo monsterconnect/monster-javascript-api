@@ -34,7 +34,13 @@
         var host = localStorage['host'];
         var authToken = localStorage['authToken'];
         if (host && authToken) {
-          MonsterConnect.createClient({ authToken, host }).then((client) => {
+          const config = {}
+          config.authToken = authToken;
+          config.host = host;
+          config.debug = true;
+          config.leadSelectionMethod = 'queue';
+
+          MonsterConnect.createClient(config).then((client) => {
             mcClient = client;
             updateCallState();
 
@@ -61,7 +67,7 @@
       }
 
       function initializeCallSession() {
-        return mcClient.callSession.setLeadSelectionMethod('queue');
+        //return mcClient.callSession.setLeadSelectionMethod('queue');
       }
 
       function updateCallState(data) {

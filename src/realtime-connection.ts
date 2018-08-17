@@ -1,9 +1,5 @@
 import Faye from '../vendor/faye-shim';
-
-interface RealtimeConnectionParams {
-  host: string;
-  authToken: string;
-}
+import { Config } from './config';
 
 interface WebSocketCallback {
   (...args: any[]): void;
@@ -18,16 +14,14 @@ interface WebSocketMessage {
 
 export default class RealtimeConnection {
 
-  host: string;
-  authToken: string;
+  config: Config;
   webSocketUrl: string;
 
   protected _webSocketClient: any;
 
-  constructor(params: RealtimeConnectionParams) {
-    this.host = params.host;
-    this.authToken = params.authToken;
-    this.webSocketUrl = this.host + '/ws';
+  constructor(config: Config) {
+    this.config = config;
+    this.webSocketUrl = this.config.host + '/ws';
     this._initializeClient();
   }
 
@@ -66,7 +60,7 @@ export default class RealtimeConnection {
   // occurs when an incoming message is received
   incoming(message: any, callback: WebSocketCallback) {
     if (message.channel !== "/meta/connect") {
-      console.log("incoming", message);
+      this.log("incoming", message);
     }
 
     if (message.data && message.ext && message.ext._time) {
@@ -74,7 +68,7 @@ export default class RealtimeConnection {
     }
 
     if (message.error) {
-      console.warn(`Error from notification server: ${message.error}`);
+      this.warn(`Error from notification server: ${message.error}`);
     }
 
     callback(message);
@@ -87,14 +81,26 @@ export default class RealtimeConnection {
   // occurs when a message is to be sent
   outgoing(message: any, callback: WebSocketCallback) {
     if (message.channel !== "/meta/connect") {
-      console.log("outgoing", message);
+      this.log("outgoing", message);
     }
 
     if (message.channel === '/meta/subscribe') {
       message.ext = message.ext || {};
-      message.ext.session_id = this.authToken;
+      message.ext.session_id = this.config.authToken;
     }
     callback(message)
+  }
+
+  protected log(...args: any[]) {
+    if (this.config.debug) {
+      console.log(...args);
+    }
+  }
+
+  protected warn(...args: any[]) {
+    if (this.config.debug) {
+      console.warn(...args);
+    }
   }
 
 }

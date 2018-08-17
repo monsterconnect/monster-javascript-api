@@ -125,7 +125,9 @@ export class CallSessionEvents extends Events {
       case 'request_lead':
         return this.handleLeadRequested();
     }
-    console.warn(`Unknown call event: "${payload.event}"`, payload);
+    if (this.client.config.debug) {
+      console.warn(`Unknown call event: "${payload.event}"`, payload);
+    }
   }
 
   /** Handles the call session state change event */

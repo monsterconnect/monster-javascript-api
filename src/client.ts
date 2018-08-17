@@ -2,35 +2,22 @@ import RealtimeConnection from './realtime-connection';
 import { Events, EventCallback } from './events';
 import { RestApi, FetchResult } from './rest-api';
 import CallSession from './call-session';
-
-const DEFAULT_HOST = 'https://app.monsterconnect.com';
-const DEFAULT_NAMESPACE = 'api/v1';
-
-export interface ClientParams {
-  host?: string;
-  namespace?: string;
-  authToken?: string;
-}
+import { ConfigParams, Config } from './config';
 
 export class Client {
-
-  host: string;
-  namespace: string;
-  authToken: string;
+  config: Config;
   events: Events;
   http: RestApi;
   callSession: CallSession;
   realtime: RealtimeConnection;
   user: any;
 
-  constructor(params: ClientParams) {
-    this.host = params.host || DEFAULT_HOST;
-    this.namespace = params.namespace || DEFAULT_NAMESPACE;
-    this.authToken = params.authToken;
+  constructor(params: ConfigParams) {
+    this.config = new Config(params);
 
     this._initializeRealtimeConnection();
     this.events = new Events();
-    this.http = new RestApi({ host: this.host, namespace: this.namespace, authToken: this.authToken });
+    this.http = new RestApi(this.config);
   }
 
   destroy() {
@@ -75,7 +62,7 @@ export class Client {
   }
 
   protected _initializeRealtimeConnection() {
-    this.realtime = new RealtimeConnection({ host: this.host, authToken: this.authToken });
+    this.realtime = new RealtimeConnection(this.config);
   }
 
   on(eventName: string, callback: EventCallback) {

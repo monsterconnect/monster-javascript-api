@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ClientParams | MonsterConnect Javascript Library</title>
+	<title>ConfigParams | MonsterConnect Javascript Library</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,25 +56,38 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_src_client_.html">&quot;src/client&quot;</a>
+					<a href="../modules/_src_config_.html">&quot;src/config&quot;</a>
 				</li>
 				<li>
-					<a href="_src_client_.clientparams.html">ClientParams</a>
+					<a href="_src_config_.configparams.html">ConfigParams</a>
 				</li>
 			</ul>
-			<h1>Interface ClientParams</h1>
+			<h1>Interface ConfigParams</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The configuration parameters to pass into a Client.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ClientParams</span>
+						<span class="target">ConfigParams</span>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implemented by</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../classes/_src_config_.config.html" class="tsd-signature-type">Config</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -84,9 +97,11 @@
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_client_.clientparams.html#authtoken" class="tsd-kind-icon">auth<wbr>Token</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_client_.clientparams.html#host" class="tsd-kind-icon">host</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_client_.clientparams.html#namespace" class="tsd-kind-icon">namespace</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_config_.configparams.html#authtoken" class="tsd-kind-icon">auth<wbr>Token</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_config_.configparams.html#debug" class="tsd-kind-icon">debug</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_config_.configparams.html#host" class="tsd-kind-icon">host</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_config_.configparams.html#leadselectionmethod" class="tsd-kind-icon">lead<wbr>Selection<wbr>Method</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_src_config_.configparams.html#namespace" class="tsd-kind-icon">namespace</a></li>
 							</ul>
 						</section>
 					</div>
@@ -100,9 +115,29 @@
 					<div class="tsd-signature tsd-kind-icon">auth<wbr>Token<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/client.ts:12</li>
+							<li>Defined in src/config.ts:14</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The secure authorization token that identifies a MonsterConnect user account.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+					<a name="debug" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> debug</h3>
+					<div class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/config.ts:20</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Specifies whether or not debug logging is enabled or not. Defaults to false.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
 					<a name="host" class="tsd-anchor"></a>
@@ -110,9 +145,29 @@
 					<div class="tsd-signature tsd-kind-icon">host<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/client.ts:10</li>
+							<li>Defined in src/config.ts:8</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The host of the MonsterConnect API, usually <a href="https://app.monsterconnect.com">https://app.monsterconnect.com</a>.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+					<a name="leadselectionmethod" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> lead<wbr>Selection<wbr>Method</h3>
+					<div class="tsd-signature tsd-kind-icon">lead<wbr>Selection<wbr>Method<span class="tsd-signature-symbol">:</span> <a href="../modules/_src_config_.html#leadselectionmethod" class="tsd-signature-type">LeadSelectionMethod</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/config.ts:17</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Specifies how the leads are to be selected within a call session.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
 					<a name="namespace" class="tsd-anchor"></a>
@@ -120,9 +175,14 @@
 					<div class="tsd-signature tsd-kind-icon">namespace<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/client.ts:11</li>
+							<li>Defined in src/config.ts:11</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The namespace of the MonsterConnect API (for versioning purposes). Defaults to &#39;api/v1&#39;.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -147,8 +207,11 @@
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_src_call_session_events_.html">"src/call-<wbr>session-<wbr>events"</a>
 					</li>
-					<li class="current tsd-kind-external-module tsd-is-external">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_src_client_.html">"src/client"</a>
+					</li>
+					<li class="current tsd-kind-external-module tsd-is-external">
+						<a href="../modules/_src_config_.html">"src/config"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_src_events_.html">"src/events"</a>
@@ -185,31 +248,34 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
-						<a href="../classes/_src_client_.client.html" class="tsd-kind-icon">Client</a>
+						<a href="../classes/_src_config_.config.html" class="tsd-kind-icon">Config</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-is-external">
-						<a href="_src_client_.clientparams.html" class="tsd-kind-icon">Client<wbr>Params</a>
+						<a href="_src_config_.configparams.html" class="tsd-kind-icon">Config<wbr>Params</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="_src_client_.clientparams.html#authtoken" class="tsd-kind-icon">auth<wbr>Token</a>
+								<a href="_src_config_.configparams.html#authtoken" class="tsd-kind-icon">auth<wbr>Token</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="_src_client_.clientparams.html#host" class="tsd-kind-icon">host</a>
+								<a href="_src_config_.configparams.html#debug" class="tsd-kind-icon">debug</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="_src_client_.clientparams.html#namespace" class="tsd-kind-icon">namespace</a>
+								<a href="_src_config_.configparams.html#host" class="tsd-kind-icon">host</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+								<a href="_src_config_.configparams.html#leadselectionmethod" class="tsd-kind-icon">lead<wbr>Selection<wbr>Method</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+								<a href="_src_config_.configparams.html#namespace" class="tsd-kind-icon">namespace</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<a href="../modules/_src_client_.html#default_host" class="tsd-kind-icon">DEFAULT_<wbr>HOST</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<a href="../modules/_src_client_.html#default_namespace" class="tsd-kind-icon">DEFAULT_<wbr>NAMESPACE</a>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-external">
+						<a href="../modules/_src_config_.html#leadselectionmethod" class="tsd-kind-icon">Lead<wbr>Selection<wbr>Method</a>
 					</li>
 				</ul>
 			</nav>
