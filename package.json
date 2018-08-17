@@ -4,7 +4,7 @@
   "description": "MonsterConnect Javascript API",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode=development --display-error-details",
+    "build": "webpack --mode=production --display-error-details",
     "production": "webpack -p --display-error-details",
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "typedoc --out docs/ --module commonjs --name 'MonsterConnect Javascript Library' src/index.js",
