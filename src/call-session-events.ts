@@ -10,8 +10,8 @@ export interface CallSessionChangedEventPayload {
   call_session_id: string;
   to: CallSessionState;
   reason: string;
-  leadId: string;
-  outboundCallId: string;
+  lead_id: string;
+  outbound_call_id: string;
   _time: number;
 }
 
@@ -28,8 +28,8 @@ export class CallSessionChangedEvent {
     this.id = String(payload.call_session_id);
     this.state = payload.to;
     this.reason = payload.reason;
-    this.leadId = String(payload.leadId);
-    this.outboundCallId = String(payload.outboundCallId);
+    this.leadId = String(payload.lead_id);
+    this.outboundCallId = String(payload.outbound_call_id);
     this._time = payload._time;
   }
 }
