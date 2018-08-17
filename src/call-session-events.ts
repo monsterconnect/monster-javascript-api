@@ -10,6 +10,8 @@ export interface CallSessionChangedEventPayload {
   call_session_id: string;
   to: CallSessionState;
   reason: string;
+  leadId: string;
+  outboundCallId: string;
   _time: number;
 }
 
@@ -19,11 +21,15 @@ export class CallSessionChangedEvent {
   state: CallSessionState;
   _time: number;
   reason: string;
+  leadId: string;
+  outboundCallId: string;
 
   constructor(payload: CallSessionChangedEventPayload) {
-    this.id = payload.call_session_id;
+    this.id = String(payload.call_session_id);
     this.state = payload.to;
     this.reason = payload.reason;
+    this.leadId = String(payload.leadId);
+    this.outboundCallId = String(payload.outboundCallId);
     this._time = payload._time;
   }
 }
@@ -54,9 +60,9 @@ export class OutboundCallChangedEvent {
   _time: number;
 
   constructor(payload: OutboundCallChangedEventPayload) {
-    this.id = payload.id;
+    this.id = String(payload.id);
     this.state = payload.state;
-    this.leadId = payload.lead_id;
+    this.leadId = String(payload.lead_id);
     this.masterId = payload.master_id;
     this.startedAt = (payload.started_at && new Date(payload.started_at));
     this.endedAt = (payload.ended_at && new Date(payload.ended_at));
