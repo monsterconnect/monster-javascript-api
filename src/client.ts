@@ -3,6 +3,7 @@ import { Events, EventCallback } from './events';
 import { RestApi, FetchResult } from './rest-api';
 import CallSession from './call-session';
 import { ConfigParams, Config } from './config';
+import AvailabilityInfo from './availability-info';
 
 export class Client {
   config: Config;
@@ -59,6 +60,13 @@ export class Client {
   getCurrentSession(): Promise<CallSession> {
     this.callSession = new CallSession(this);
     return this.callSession.fetch();
+  }
+
+  /** Returns the current agent availability information from the MonsterConnect platform */
+  getAvailability(): Promise<AvailabilityInfo> {
+    return this.http.get('server_activities/availability').then((response) => {
+      return new AvailabilityInfo(response.body.availability);
+    });
   }
 
   protected _initializeRealtimeConnection() {
