@@ -156,7 +156,8 @@ export default class CallSession {
           title: l.title,
           company_name: l.companyName,
           phone: l.phone,
-          email: l.email
+          email: l.email,
+          caller_id_number: l.callerIdNumber
         }
       })
     };

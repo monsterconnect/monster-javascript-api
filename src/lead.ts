@@ -6,4 +6,5 @@ export default interface Lead {
   companyName?: string;
   phone?: string;
   email?: string;
+  callerIdNumber?: string;
 }
